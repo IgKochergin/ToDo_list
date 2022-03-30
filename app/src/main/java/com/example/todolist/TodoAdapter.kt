@@ -1,12 +1,13 @@
 package com.example.todolist
 
-import android.accounts.AuthenticatorDescription
+import android.graphics.Color
 import android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todolist.TodoData.Todo
 import kotlinx.android.synthetic.main.item_todo.view.*
 
 class TodoAdapter(val todos: MutableList<Todo>):
@@ -53,6 +54,7 @@ class TodoAdapter(val todos: MutableList<Todo>):
             tvTodoTitle.text = curTodo.title
             tvTodoDescription.text = curTodo.description
             cbDone.isChecked=curTodo.isChecked
+            //holder.itemView.setBackgroundColor(Color.parseColor("redForPriority"))
             toggleStrikeThrough(tvTodoTitle, tvTodoDescription, curTodo.isChecked)
             cbDone.setOnCheckedChangeListener{ _, isChecked ->
                 toggleStrikeThrough(tvTodoTitle,tvTodoDescription, isChecked)
@@ -61,8 +63,6 @@ class TodoAdapter(val todos: MutableList<Todo>):
         }
     }
 
-    override fun getItemCount(): Int {
-        return todos.size
-    }
+    override fun getItemCount(): Int {return todos.size}
 
 }

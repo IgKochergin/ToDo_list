@@ -1,33 +1,26 @@
 package com.example.todolist
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.EditText
-import android.widget.LinearLayout
-import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.isVisible
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.todolist.TodoData.Todo
 import com.example.todolist.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.btnAddTodo
-import kotlinx.android.synthetic.main.adding_new_todo.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var todoAdapter: TodoAdapter
     lateinit var binding: ActivityMainBinding
     lateinit var addNewTodo: addingNewTodo
-    var savePreferenses: SharedPreferences?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        savePreferenses = getSharedPreferences("Todos", Context.MODE_PRIVATE)
 
         todoAdapter = TodoAdapter(mutableListOf())
         rvTodoItems.adapter=todoAdapter
@@ -49,23 +42,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun load(){
-
-    }
-
-    private fun saveData(){
-        for (i in todoAdapter.todos){
-            val editor = savePreferenses?.edit()
-            editor?.putString(i.title, i.description)
-            editor?.apply()
-        }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        saveData()
-    }
-
     fun deleteFragment(){
         supportFragmentManager.beginTransaction().remove(addNewTodo).commit()
         rvTodoItems.isVisible=true
@@ -74,8 +50,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun reply(titleNew:String, descriptionNew:String) {
-        var newTodo = Todo(titleNew, descriptionNew)
+    fun reply(titleNew:String, descriptionNew:String, priority:Int) {
+        var newTodo = Todo(titleNew, descriptionNew, priority)
         todoAdapter.addTodo(newTodo)
     }
 }
