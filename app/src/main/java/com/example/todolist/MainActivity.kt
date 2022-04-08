@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Spinner
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todolist.TodoData.Todo
@@ -47,10 +48,9 @@ class MainActivity : AppCompatActivity() {
         rvTodoItems.isVisible=true
         btnAddTodo.isEnabled=true
         btnDeleteDoneTodos.isEnabled=true
-
     }
 
-    fun reply(titleNew:String, descriptionNew:String, priority:Int) {
+    fun reply(titleNew:String, descriptionNew:String, priority:String) {
         var newTodo = Todo(titleNew, descriptionNew, priority)
         todoAdapter.addTodo(newTodo)
     }

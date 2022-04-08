@@ -2,6 +2,7 @@
     <string name="app_name">ToDo list</string>
     <string name="todoTitleHint">Введите задачу</string>
     <string name="todoDescriptionHint">Введите описание</string>
+    <string name="priorityTitle">Приоритет</string>
     <string-array name="priority">
         <item>Низкий</item>
         <item>Средний</item>

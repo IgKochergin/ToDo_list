@@ -40,15 +40,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="Приоритет"
+            android:text="@string/priorityTitle"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/priority"
+        <Spinner
+            android:id="@+id/prioritySpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:entries="@array/priority"
@@ -68,8 +68,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

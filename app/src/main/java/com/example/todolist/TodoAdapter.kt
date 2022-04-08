@@ -54,7 +54,15 @@ class TodoAdapter(val todos: MutableList<Todo>):
             tvTodoTitle.text = curTodo.title
             tvTodoDescription.text = curTodo.description
             cbDone.isChecked=curTodo.isChecked
-            //holder.itemView.setBackgroundColor(Color.parseColor("redForPriority"))
+
+            when(todos[position].priority){
+                "Низкий"->holder.itemView.setBackgroundColor(Color.parseColor("#A1FF81"))
+                "Средний"->holder.itemView.setBackgroundColor(Color.parseColor("#FCFF57"))
+                else-> holder.itemView.setBackgroundColor(Color.parseColor("#FF8787"))
+                //else -> holder.itemView.setBackgroundColor(Color.parseColor("#000000"))
+            }
+
+            //setColor(holder, position)
             toggleStrikeThrough(tvTodoTitle, tvTodoDescription, curTodo.isChecked)
             cbDone.setOnCheckedChangeListener{ _, isChecked ->
                 toggleStrikeThrough(tvTodoTitle,tvTodoDescription, isChecked)
@@ -64,5 +72,4 @@ class TodoAdapter(val todos: MutableList<Todo>):
     }
 
     override fun getItemCount(): Int {return todos.size}
-
 }

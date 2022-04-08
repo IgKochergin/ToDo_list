@@ -7,7 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#1B1B1B</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="redForPriority">FF8787</color>
-    <color name="yellowForPriority">FCFF57</color>
-    <color name="greenForPriority">A1FF81</color>
+    <color name="redForPriority">#FF8787</color>
+    <color name="yellowForPriority">#FCFF57</color>
+    <color name="greenForPriority">#A1FF81</color>
 </resources>
