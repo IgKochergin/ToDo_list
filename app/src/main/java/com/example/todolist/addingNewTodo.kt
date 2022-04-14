@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.adding_new_todo.*
 class addingNewTodo : Fragment(R.layout.adding_new_todo) {
 
     lateinit var binding: AddingNewTodoBinding
-
+    lateinit var priorityStr:String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,27 +29,16 @@ class addingNewTodo : Fragment(R.layout.adding_new_todo) {
     ): View? {
         binding = AddingNewTodoBinding.inflate(layoutInflater)
 
-        val customList = resources.getStringArray(R.array.priority)
-
-        val view = inflater.inflate(R.layout.adding_new_todo, container,false)
-        val spinner:Spinner = view.findViewById(R.id.prioritySpinner)
-        val adapter = ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item, customList)
-        var priorityStr:String = "Средний"
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner!!.setAdapter(adapter)
-
-
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        binding.prioritySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 adapterView: AdapterView<*>?,
                 view: View?,
                 position: Int,
                 id: Long) {
                     priorityStr = adapterView?.getItemAtPosition(position).toString()
-                    //Log.i("")
                 }
                 override fun onNothingSelected(p0: AdapterView<*>?) {
-                    priorityStr="Высокий"
+
                 }
         }
 

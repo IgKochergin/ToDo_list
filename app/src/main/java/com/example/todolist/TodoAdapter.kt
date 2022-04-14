@@ -59,7 +59,6 @@ class TodoAdapter(val todos: MutableList<Todo>):
                 "Низкий"->holder.itemView.setBackgroundColor(Color.parseColor("#A1FF81"))
                 "Средний"->holder.itemView.setBackgroundColor(Color.parseColor("#FCFF57"))
                 else-> holder.itemView.setBackgroundColor(Color.parseColor("#FF8787"))
-                //else -> holder.itemView.setBackgroundColor(Color.parseColor("#000000"))
             }
 
             //setColor(holder, position)
