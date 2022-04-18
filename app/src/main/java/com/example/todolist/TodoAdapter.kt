@@ -6,13 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.ListFragment
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todolist.TodoData.Todo
+import com.example.todolist.model.Todo
 import kotlinx.android.synthetic.main.item_todo.view.*
 
-class TodoAdapter(val todos: MutableList<Todo>):
+class TodoAdapter(val mainActivity: MainActivity):
         RecyclerView.Adapter<TodoAdapter.TodoViewHolder>()
 {
+
+    /*private val todos: MutableList<Todo>*/
+    private var todoList = emptyList<Todo>()
     class TodoViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
@@ -23,18 +27,6 @@ class TodoAdapter(val todos: MutableList<Todo>):
                 false
             )
         )
-    }
-
-    fun addTodo(todo: Todo){
-        todos.add(todo)
-        notifyItemInserted(todos.size-1)
-    }
-
-    fun deleteDoneTodos(){
-        todos.removeAll{ todo->
-            todo.isChecked
-        }
-        notifyDataSetChanged()
     }
 
     private fun toggleStrikeThrough(tvTodoTitle: TextView,tvTodoDescription: TextView , isChecked: Boolean){
@@ -49,26 +41,35 @@ class TodoAdapter(val todos: MutableList<Todo>):
     }
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
-        var curTodo = todos[position]
+        val curTodo = todoList[position]
         holder.itemView.apply {
             tvTodoTitle.text = curTodo.title
             tvTodoDescription.text = curTodo.description
             cbDone.isChecked=curTodo.isChecked
 
-            when(todos[position].priority){
+            when(todoList[position].priority){
                 "Низкий"->holder.itemView.setBackgroundColor(Color.parseColor("#A1FF81"))
                 "Средний"->holder.itemView.setBackgroundColor(Color.parseColor("#FCFF57"))
                 else-> holder.itemView.setBackgroundColor(Color.parseColor("#FF8787"))
             }
 
-            //setColor(holder, position)
             toggleStrikeThrough(tvTodoTitle, tvTodoDescription, curTodo.isChecked)
             cbDone.setOnCheckedChangeListener{ _, isChecked ->
                 toggleStrikeThrough(tvTodoTitle,tvTodoDescription, isChecked)
                 curTodo.isChecked = !curTodo.isChecked
             }
+
+            holder.itemView.rowLayout.setOnClickListener {
+                mainActivity.createUpdateFragment(todoList[position])
+            }
         }
+
     }
 
-    override fun getItemCount(): Int {return todos.size}
+    override fun getItemCount(): Int {return todoList.size}
+
+    fun setData(todo:List<Todo>){
+        this.todoList=todo
+        notifyDataSetChanged()
+    }
 }

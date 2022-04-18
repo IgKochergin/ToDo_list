@@ -3,6 +3,7 @@ package com.example.todolist
 import android.content.Intent
 import android.os.Bundle
 import android.system.Os.remove
+import android.text.TextUtils
 import android.text.TextUtils.replace
 import android.util.Log
 import android.view.LayoutInflater
@@ -45,9 +46,19 @@ class addingNewTodo : Fragment(R.layout.adding_new_todo) {
         binding.btnAddTodo.setOnClickListener {
             val title = binding.todoTitle.text.toString()
             val description = binding.description.text.toString()
-            (activity as MainActivity).reply(title, description, priorityStr)
-            (activity as MainActivity).deleteFragment()
+            if(inputCheck(title, description)) {
+                (activity as MainActivity).reply(title, description, priorityStr)
+                (activity as MainActivity).deleteFragment()
+                Toast.makeText(requireContext(), "Добавлено", Toast.LENGTH_LONG).show()
+            }
+            else{
+                Toast.makeText(requireContext(), "Заполните поля названия и описания", Toast.LENGTH_LONG).show()
+            }
         }
+
         return binding.root
+    }
+    private fun inputCheck(title:String, description:String):Boolean{
+        return !(TextUtils.isEmpty(title) && TextUtils.isEmpty(description))
     }
 }
