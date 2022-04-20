@@ -17,7 +17,7 @@ import com.example.todolist.databinding.AddingNewTodoBinding
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.adding_new_todo.*
-
+//фрагмент для добавления элемента
 class addingNewTodo : Fragment(R.layout.adding_new_todo) {
 
     lateinit var binding: AddingNewTodoBinding
@@ -29,7 +29,7 @@ class addingNewTodo : Fragment(R.layout.adding_new_todo) {
         savedInstanceState: Bundle?
     ): View? {
         binding = AddingNewTodoBinding.inflate(layoutInflater)
-
+        //обработка выбора элемента в spinner
         binding.prioritySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 adapterView: AdapterView<*>?,
@@ -43,6 +43,7 @@ class addingNewTodo : Fragment(R.layout.adding_new_todo) {
                 }
         }
 
+        //Обработка нажатия кнопки "добавить"
         binding.btnAddTodo.setOnClickListener {
             val title = binding.todoTitle.text.toString()
             val description = binding.description.text.toString()
@@ -58,6 +59,7 @@ class addingNewTodo : Fragment(R.layout.adding_new_todo) {
 
         return binding.root
     }
+    //Проверка на введенные данные
     private fun inputCheck(title:String, description:String):Boolean{
         return !(TextUtils.isEmpty(title) && TextUtils.isEmpty(description))
     }

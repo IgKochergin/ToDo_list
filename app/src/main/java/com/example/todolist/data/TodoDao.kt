@@ -13,6 +13,9 @@ interface TodoDao {
     @Update
     suspend fun updateTodo(todo:Todo)
 
+    @Delete
+    suspend fun deleteTodo(todo:Todo)
+
     @Query("SELECT * FROM todo_table ORDER BY id ASC ")
     fun readAllData():LiveData<List<Todo>>
 }

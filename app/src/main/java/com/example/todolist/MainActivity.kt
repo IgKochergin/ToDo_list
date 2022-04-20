@@ -30,13 +30,14 @@ class MainActivity : AppCompatActivity() {
         rvTodoItems.adapter=todoAdapter
         rvTodoItems.layoutManager = LinearLayoutManager(this)
         addNewTodo = addingNewTodo()
-        //fragmentUpdate = fragmentUpdate()
 
+        //инизиализация объекта mTodoViewModel
         mTodoViewModel = ViewModelProvider(this).get(TodoViewModel::class.java)
         mTodoViewModel.readAllData.observe(this, Observer { todo ->
             todoAdapter.setData(todo)
         })
 
+        //обработка нажатия кнопки "добавить"
         binding.btnAddTodo.setOnClickListener{
             rvTodoItems.isVisible=false
             btnAddTodo.isEnabled=false
@@ -47,11 +48,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        //btnDeleteDoneTodos.setOnClickListener {
-        //    todoAdapter.deleteDoneTodos()
-        //}
+        //обработка нажатия кнопки "удалить"
+        btnDeleteDoneTodos.setOnClickListener {
+            todoAdapter.deleteDoneTodos(mTodoViewModel)
+        }
     }
 
+    //создание нового фрагмента для изменения задания
     fun createUpdateFragment(todo: Todo){
         fragmentUpdate = fragmentUpdate(todo)
         rvTodoItems.isVisible=false
@@ -62,6 +65,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //удаляет фрагмент добавления
     fun deleteFragment(){
         supportFragmentManager.beginTransaction().remove(addNewTodo).commit()
         rvTodoItems.isVisible=true
@@ -69,6 +73,7 @@ class MainActivity : AppCompatActivity() {
         //btnDeleteDoneTodos.isEnabled=true
     }
 
+    //удаляет фрагмент обновления
     fun deleteFragmentUpdate(){
         supportFragmentManager.beginTransaction().remove(fragmentUpdate).commit()
         rvTodoItems.isVisible=true
@@ -76,6 +81,7 @@ class MainActivity : AppCompatActivity() {
         //btnDeleteDoneTodos.isEnabled=true
     }
 
+    //добавляет в бд новый элемент типа Todo
     fun reply(titleNew:String, descriptionNew:String, priority:String) {
         var newTodo = Todo(0, titleNew, descriptionNew, priority)
         mTodoViewModel.addTodo(newTodo)
